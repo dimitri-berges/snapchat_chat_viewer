@@ -1,6 +1,6 @@
 # snapchat_chat_viewer
 
-A single web page to view snapchat chat message from downloaded data.
+A single web page to view snapchat chat message from downloaded data, using vue.js and tailwind css.
 
 ## Pre-requisites
 
