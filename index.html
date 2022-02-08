@@ -6,13 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="node_modules/vue/dist/vue.js" ></script>
     <!-- FOR PRODUCTION <script src="node_modules/vue/dist/vue.min.js" ></script> -->
-    <script src="index.js" ></script>
     <link rel="stylesheet" href="index.css" />
     <title>Snapchat chat viewer</title>
 </head>
-<body>
-    <h1 class="text-3xl font-bold">
-        Hello world!
-    </h1>
+<body class="flex flex-col items-stretch absolute inset-0">
+    <div id="app">
+        <header class="border-b-2 h-16 flex flex-row justify-center items-center px-4">
+            <div>
+                <select v-model="selected_username" class="p-1" v-if="usernames.length">
+                    <option value="">Choisissez</option>
+                    <option v-for="name in usernames" :value="name" v-html="name"></option>
+                </select>
+                <p v-else>Importez le fichier chat_history.json d'abord !</p>
+            </div>
+            <h1 class="text-3xl font-bold grow text-center">
+                Hello world!
+            </h1>
+            <div id="file_import">
+                <input type="file" id="file_import_button" accept="application/json" @change="loadFile"/>
+            </div>
+        </header>
+        <main class="grow p-4">
+            <snap-conv v-for="username in usernames" :key="username" v-if="username == selected_username" :username="username" :json="json_from_snap"></snap-conv>
+            <div v-if="selected_username == ''">Merci de sélectionner un nom d'utilisateur</div>
+        </main>
+        <footer class="border-t-2 h-16 flex flex-row justify-center items-center">
+            <div class="text-center text-sm">Aucune donnée n'est enregistrée par nos services.</div>
+        </footer>
+    </div>
+    <script src="index.js" ></script>
 </body>
 </html>
